@@ -32,7 +32,8 @@ export function collisionObjectFactory(): collision_object {
 export function collision_object_to_sympy(
 	obj1: collision_object,
 	obj2: collision_object,
-	relative_speed: latex
+	relative_speed: latex,
+    relative_speed_positive: boolean
 ) {
 	return {
 		m1i: convertIfNotNull(obj1.before.mass),
@@ -51,7 +52,8 @@ export function collision_object_to_sympy(
 		p2f: convertIfNotNull(obj2.after.momentum),
 		e2i: convertIfNotNull(obj2.before.kinetic_energy),
 		e2f: convertIfNotNull(obj2.after.kinetic_energy),
-		re: convertIfNotNull(relative_speed)
+		re: convertIfNotNull(relative_speed),
+        re_positive: relative_speed_positive
 	};
 }
 

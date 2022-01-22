@@ -11,11 +11,12 @@
 	let obj1: collision_object = collisionObjectFactory();
 	let obj2: collision_object = collisionObjectFactory();
 	let relative_speed: latex = null;
+	let relative_speed_positive: boolean = true;
 
 	async function solve() {
 		const req = JSON.stringify({
 			problem_type: 'collision',
-			problem: collision_object_to_sympy(obj1, obj2, relative_speed)
+			problem: collision_object_to_sympy(obj1, obj2, relative_speed, relative_speed_positive)
 		});
 		const collision_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -28,7 +29,9 @@
 		if (collision_solution.status !== 200) {
 			console.error(
 				'Error in collision_solution.status !== 200',
-				collision_solution.status, await collision_solution.json(), JSON.parse(req)
+				collision_solution.status,
+				await collision_solution.json(),
+				JSON.parse(req)
 			);
 			return;
 		}
@@ -49,6 +52,13 @@
 	<div class="card shadow-lg bg-base-100">
 		<div class="flex-row items-center space-x-4 card-body">
 			<MathInput name="COR" units="e" bind:input={relative_speed} />
+			<h3 class="card-title !mt-3 !ml-10">Relative Speed Sign</h3>
+			<div class="btn-group">
+				<button class="btn {relative_speed_positive ? 'btn-active' : ''}" on:click={() => {relative_speed_positive = true}}>+</button>
+				<button class="btn {!relative_speed_positive ? 'btn-active' : ''}" on:click={() => {relative_speed_positive = false}}>-</button>
+			</div>
+		</div>
+		<div class="flex-row items-center space-x-4 card-body !pt-0">
 			<button
 				class="btn"
 				on:click={() => {
@@ -61,6 +71,7 @@
 					obj1 = collisionObjectFactory();
 					obj2 = collisionObjectFactory();
 					relative_speed = null;
+					relative_speed_positive = true;
 				}}>Clear</button
 			>
 		</div>

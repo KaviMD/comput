@@ -10,7 +10,11 @@ for unknown in unknown_list:
     symbol_dict[unknown] = symbols(unknown)
 
 conservation_of_momentum = ((symbol_dict["m1i"]*symbol_dict["v1i"]) + (symbol_dict["m2i"]*symbol_dict["v2i"])) - ((symbol_dict["m1f"]*symbol_dict["v1f"]) + (symbol_dict["m2f"]*symbol_dict["v2f"]))
-relative_speed = ((symbol_dict["v1f"] - symbol_dict["v2f"]) / (symbol_dict["v1i"] - symbol_dict["v2i"])) - symbol_dict["re"]
+relative_speed = ((symbol_dict["v1f"] - symbol_dict["v2f"]) / (symbol_dict["v1i"] - symbol_dict["v2i"]))
+if symbol_dict['re_positive']:
+    relative_speed += symbol_dict["re"]
+else:
+    relative_speed -= symbol_dict["re"]
 
 solution = nonlinsolve([conservation_of_momentum, relative_speed], unknown_list)
 

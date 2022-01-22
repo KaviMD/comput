@@ -66,7 +66,7 @@ export const post: RequestHandler = async ({ request }) => {
 };
 
 async function solve_collision(problem) {
-	const filter_symbols = ['m1i', 'm1f', 'v1i', 'v1f', 'm2i', 'm2f', 'v2i', 'v2f', 're'];
+	const filter_symbols = ['m1i', 'm1f', 'v1i', 'v1f', 'm2i', 'm2f', 'v2i', 'v2f', 're', 're_positive'];
 	let known_symbols = {};
 	let unknown_symbols = [];
 
