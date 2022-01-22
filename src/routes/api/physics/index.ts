@@ -61,7 +61,7 @@ export const post: RequestHandler = async ({ request }) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: solution
+    body: {...data.problem, ...solution},
   };
 }
 
@@ -93,5 +93,5 @@ async function solve_collision(problem) {
 }
 
 async function runPythonScript(filename: string, args: string[]) {
-  return await execute(`python3 src/lib/python/${filename} ${args.join(" ")}`);
+  return await execute(`python3 src/lib/python/${filename} '${args.join("' '")}'`);
 }
