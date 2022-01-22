@@ -1,16 +1,10 @@
 <script lang="ts">
 	import Entity from '$lib/components/Entity.svelte';
-	import { solveState, solveCollision, collisionObjectFactory } from '$lib/ts/solver';
+	import { transformCollision, collisionObjectFactory } from '$lib/ts/solver';
 	import type { collision_object } from '$lib/ts/solver';
 
 	let obj1: collision_object = collisionObjectFactory();
 	let obj2: collision_object = collisionObjectFactory();
-
-	function solveBothStates(obj1: collision_object): collision_object {
-		solveState(obj1.before);
-		solveState(obj1.after);
-		return obj1
-	}
 
 	async function solve() {
 		// solveBothStates(obj1);
@@ -28,11 +22,7 @@
 		console.log(collision_solution);
 		console.log(JSON.stringify({
 				problem_type: 'collision',
-				problem: {
-					obj1,
-					obj2,
-					relative_speed: 1
-				}
+				problem: transformCollision(obj1, obj2, 1)
 			}))
 	}
 </script>
