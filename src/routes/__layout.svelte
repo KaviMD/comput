@@ -12,7 +12,9 @@
 
 <main>
 	<div class="grid grid-cols-1 gap-6 p-10 xl:grid-cols-10 bg-base-200">
-		<div class="navbar col-span-1 shadow-lg xl:col-span-10 bg-neutral-focus text-neutral-content rounded-box">
+		<div
+			class="navbar col-span-1 shadow-lg xl:col-span-10 bg-neutral-focus text-neutral-content rounded-box"
+		>
 			<div class="px-2 mx-2 navbar-start">
 				<span class="text-lg font-bold"> yeet </span>
 			</div>
