@@ -10,20 +10,32 @@
 
 	let obj1: collision_object = collisionObjectFactory();
 	let obj2: collision_object = collisionObjectFactory();
-	let relative_speed: latex = '';
+	let relative_speed: latex = null;
 
 	async function solve() {
+		const req = JSON.stringify({
+			problem_type: 'collision',
+			problem: collision_object_to_sympy(obj1, obj2, relative_speed)
+		});
 		const collision_solution = await fetch('/api/physics', {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({
-				problem_type: 'collision',
-				problem: collision_object_to_sympy(obj1, obj2, 1)
-			})
+			body: req
 		});
-		const solution = sympy_to_collision_object(await collision_solution.json());
+
+		if (collision_solution.status !== 200) {
+			console.error(
+				'Error in collision_solution.status !== 200',
+				collision_solution.status, await collision_solution.json(), JSON.parse(req)
+			);
+			return;
+		}
+
+		// console.log(req);
+		const body = await collision_solution.json();
+		const solution = sympy_to_collision_object(body);
 		obj1 = solution.obj1;
 		obj2 = solution.obj2;
 		relative_speed = solution.relative_speed;
@@ -48,6 +60,7 @@
 				on:click={() => {
 					obj1 = collisionObjectFactory();
 					obj2 = collisionObjectFactory();
+					relative_speed = null;
 				}}>Clear</button
 			>
 		</div>

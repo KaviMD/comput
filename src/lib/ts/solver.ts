@@ -35,24 +35,32 @@ export function collision_object_to_sympy(
 	relative_speed: latex
 ) {
 	return {
-		m1i: obj1.before.mass,
-		m1f: obj1.after.mass,
-		v1i: obj1.before.velocity,
-		v1f: obj1.after.velocity,
-		p1i: obj1.before.momentum,
-		p1f: obj1.after.momentum,
-		e1i: obj1.before.kinetic_energy,
-		e1f: obj1.after.kinetic_energy,
-		m2i: obj2.before.mass,
-		m2f: obj2.after.mass,
-		v2i: obj2.before.velocity,
-		v2f: obj2.after.velocity,
-		p2i: obj2.before.momentum,
-		p2f: obj2.after.momentum,
-		e2i: obj2.before.kinetic_energy,
-		e2f: obj2.after.kinetic_energy,
-		re: relative_speed
+		m1i: convertIfNotNull(obj1.before.mass),
+        m1f: convertIfNotNull(obj1.after.mass),
+		v1i: convertIfNotNull(obj1.before.velocity),
+		v1f: convertIfNotNull(obj1.after.velocity),
+		p1i: convertIfNotNull(obj1.before.momentum),
+		p1f: convertIfNotNull(obj1.after.momentum),
+		e1i: convertIfNotNull(obj1.before.kinetic_energy),
+		e1f: convertIfNotNull(obj1.after.kinetic_energy),
+		m2i: convertIfNotNull(obj2.before.mass),
+		m2f: convertIfNotNull(obj2.after.mass),
+		v2i: convertIfNotNull(obj2.before.velocity),
+		v2f: convertIfNotNull(obj2.after.velocity),
+		p2i: convertIfNotNull(obj2.before.momentum),
+		p2f: convertIfNotNull(obj2.after.momentum),
+		e2i: convertIfNotNull(obj2.before.kinetic_energy),
+		e2f: convertIfNotNull(obj2.after.kinetic_energy),
+		re: convertIfNotNull(relative_speed)
 	};
+}
+
+function convertIfNotNull(value: latex): number {
+    if (value === null) {
+        return null;
+    } else {
+        return Number(value);
+    }
 }
 
 export function sympy_to_collision_object(sympy_obj): {
