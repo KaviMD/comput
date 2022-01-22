@@ -12,9 +12,28 @@
 		return obj1
 	}
 
-	$: {
-		solveBothStates(obj1);
-		solveBothStates(obj2);
+	async function solve() {
+		// solveBothStates(obj1);
+		// solveBothStates(obj2);
+		const collision_solution = await fetch('/api/physics', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				obj1,
+				obj2
+			})
+		});
+		console.log(collision_solution);
+		console.log(JSON.stringify({
+				problem_type: 'collision',
+				problem: {
+					obj1,
+					obj2,
+					relative_speed: 1
+				}
+			}))
 	}
 </script>
 
@@ -24,6 +43,7 @@
 <div class="col-span-1 xl:col-span-8 xl:col-start-2">
 	<div class="card shadow-lg bg-base-100">
 		<div class="flex-row items-center space-x-4 card-body">
+			<button class="btn" on:click={() => {solve();}}>Solve</button> 
 			<button class="btn" on:click={() => {obj1 = collisionObjectFactory(); obj2 = collisionObjectFactory();}}>Clear</button> 
 		</div>
 	</div>

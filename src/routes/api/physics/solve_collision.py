@@ -22,9 +22,14 @@ for name in symbol_name_list:
         symbol_dict[name] = symbols(name)
         unknown_list.append(symbol_dict[name])
 
-print(symbol_dict, unknown_list)
-
 conservation_of_momentum = ((symbol_dict["m1i"]*symbol_dict["v1i"]) + (symbol_dict["m2i"]*symbol_dict["v2i"])) - ((symbol_dict["m1f"]*symbol_dict["v1f"]) + (symbol_dict["m2f"]*symbol_dict["v2f"]))
 relative_speed = (symbol_dict["v1i"] - symbol_dict["v2i"]) - symbol_dict["re"] * (symbol_dict["v1f"] - symbol_dict["v2f"])
 
-print(nonlinsolve([conservation_of_momentum, relative_speed], unknown_list))
+solution = nonlinsolve([conservation_of_momentum, relative_speed], unknown_list)
+
+solution_pp = {}
+
+for i,v in enumerate((unknown_list)):
+    solution_pp[v] = list(solution)[0][i]
+
+print(solution_pp)
