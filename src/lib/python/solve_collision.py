@@ -23,6 +23,10 @@ solution_pp = {}
 for i,v in enumerate((unknown_list)):
     solution_pp[v] = float(list(solution)[0][i])
 
+    # Make sure the coefficient of restitution is positive
+    if (v == "re"):
+        solution_pp[v] = abs(solution_pp[v])
+
 print(json.dumps(solution_pp))
 
-# Test: python3 src/lib/python/solve_collision.py '{"m1i":1,"m1f":1,"v1i":1,"m2i":2,"m2f":2,"v2i":0,"re":1}' '["v1f","v2f"]'
+# Test: python3 src/lib/python/solve_collision.py '{"m1i":1,"m1f":1,"v1i":1,"m2i":2,"m2f":2,"v2i":0,"re":1, "re_positive": true}' '["v1f","v2f"]'

@@ -16,14 +16,17 @@
 			class="navbar col-span-1 shadow-lg xl:col-span-10 bg-neutral-focus text-neutral-content rounded-box"
 		>
 			<div class="px-2 mx-2 navbar-start">
-				<span class="text-lg font-bold"> yeet </span>
+				<span class="text-lg font-bold"> COMPUT </span>
 			</div>
 			<div class="hidden px-2 mx-2 navbar-center lg:flex">
 				<div class="flex items-stretch">
-					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> why </a>
-					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> though </a>
-					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> CH5B </a>
-					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> why </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> i </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> don't </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> know </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> what </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> to </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> put </a>
+					<a class="btn btn-ghost btn-sm rounded-btn" href="/"> here </a>
 				</div>
 			</div>
 			<div class="navbar-end">

@@ -41,38 +41,33 @@ function execute(command) {
 export const post: RequestHandler = async ({ request }) => {
 	const data = await request.json();
 
-	let solution;
+	let filter_symbols: string[];
+	let filename: string;
 
 	switch (data.problem_type) {
 		case 'collision':
-			solution = await solve_collision(data.problem);
-	}
-
-	if (solution.failed) {
-		return {
-			status: 400,
-			body: {
-				error: solution.error
+			filter_symbols = ['m1i', 'm1f', 'v1i', 'v1f', 'm2i', 'm2f', 'v2i', 'v2f', 're', 're_positive'];
+			filename = "solve_collision.py";
+			break;
+		case 'object_properties':
+			filter_symbols = ['m', 'v', 'e', 'p'];
+			filename = "solve_object_properties.py";
+			break;
+		default:
+			return {
+				status: 400,
+				error: `Invalid problem type: ${data.problem_type}`,
 			}
-		};
 	}
 
-	return {
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: { ...data.problem, ...solution }
-	};
-};
-
-async function solve_collision(problem) {
-	const filter_symbols = ['m1i', 'm1f', 'v1i', 'v1f', 'm2i', 'm2f', 'v2i', 'v2f', 're', 're_positive'];
+	// eslint-disable-next-line prefer-const
 	let known_symbols = {};
+	// eslint-disable-next-line prefer-const
 	let unknown_symbols = [];
 
 	for (const symbol of filter_symbols) {
-		if (problem[symbol] !== null) {
-			known_symbols[symbol] = problem[symbol];
+		if (data.problem[symbol] !== null) {
+			known_symbols[symbol] = data.problem[symbol];
 		} else {
 			unknown_symbols.push(symbol);
 		}
@@ -81,18 +76,28 @@ async function solve_collision(problem) {
 	let output;
 
 	try {
-		output = await runPythonScript('solve_collision.py', [
+		output = await runPythonScript(filename, [
 			JSON.stringify(known_symbols),
 			JSON.stringify(unknown_symbols)
 		]);
 	} catch (error) {
+		console.log(error);
 		return {
-			failed: true,
-			error: error
+			status: 400,
+			body: {
+				error: error
+			},
 		};
 	}
 
-	return JSON.parse(output);
+	const solution = JSON.parse(output);
+
+	return {
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: { ...data.problem, ...solution }
+	};
 }
 
 async function runPythonScript(filename: string, args: string[]) {

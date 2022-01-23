@@ -29,6 +29,31 @@ export function collisionObjectFactory(): collision_object {
 	};
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function state_to_sympy(state: state) {
+	return {
+		m: convertIfNotNull(state.mass),
+		v: convertIfNotNull(state.velocity),
+		p: convertIfNotNull(state.momentum),
+		e: convertIfNotNull(state.kinetic_energy)
+	};
+}
+
+export function sympy_to_state(sympy: {
+	m: latex,
+	v: latex,
+	p: latex,
+	e: latex
+}): state {
+	return {
+		mass: sympy.m,
+		velocity: sympy.v,
+		momentum: sympy.p,
+		kinetic_energy: sympy.e
+	};
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function collision_object_to_sympy(
 	obj1: collision_object,
 	obj2: collision_object,
@@ -65,6 +90,7 @@ function convertIfNotNull(value: latex): number {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function sympy_to_collision_object(sympy_obj): {
 	obj1: collision_object;
 	obj2: collision_object;
