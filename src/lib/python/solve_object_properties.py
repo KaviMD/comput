@@ -5,6 +5,7 @@ import sys
 
 symbol_dict = json.loads(sys.argv[1])
 unknown_list = json.loads(sys.argv[2])
+precision = int(sys.argv[3])
 
 for unknown in unknown_list:
     symbol_dict[unknown] = symbols(unknown)
@@ -17,7 +18,7 @@ solution = nonlinsolve([momentum_equation, kinetic_energy_equation], unknown_lis
 solution_pp = {}
 
 for i,v in enumerate((unknown_list)):
-    solution_pp[v] = float(list(solution)[0][i])
+    solution_pp[v] = round(float(list(solution)[0][i]), precision)
 
 print(json.dumps(solution_pp))
 

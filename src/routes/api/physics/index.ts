@@ -78,7 +78,8 @@ export const post: RequestHandler = async ({ request }) => {
 	try {
 		output = await runPythonScript(filename, [
 			JSON.stringify(known_symbols),
-			JSON.stringify(unknown_symbols)
+			JSON.stringify(unknown_symbols),
+			data.precision,
 		]);
 	} catch (error) {
 		console.log(error);
