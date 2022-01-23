@@ -40,11 +40,13 @@
 	}; //collisionObjectFactory();
 	let relative_speed: latex = null;
 	let relative_speed_positive: boolean = true;
+	let precision: number = 3;
 
 	async function solve_state(s: state) {
 		const req = JSON.stringify({
 			problem_type: 'object_properties',
-			problem: state_to_sympy(s)
+			problem: state_to_sympy(s),
+			precision: precision,
 		});
 		const state_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -65,7 +67,6 @@
 		}
 
 		const body = await state_solution.json();
-		console.log(body);
 		const solution = sympy_to_state(body);
 		return solution;
 	}
@@ -78,7 +79,8 @@
 	) {
 		const req = JSON.stringify({
 			problem_type: 'collision',
-			problem: collision_object_to_sympy(o1, o2, rs, rs_sign)
+			problem: collision_object_to_sympy(o1, o2, rs, rs_sign),
+			precision: precision,
 		});
 		const collision_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -98,23 +100,22 @@
 			return {
 				obj1: o1,
 				obj2: o2,
-				relative_speed: rs,
+				relative_speed: rs
 			};
 		}
 
 		// console.log(req);
 		const body = await collision_solution.json();
-		console.log(body);
 		return sympy_to_collision_object(body);
 	}
 
 	async function solve() {
-		([obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
+		[obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
 			solve_state(obj1.before),
 			solve_state(obj1.after),
 			solve_state(obj2.before),
 			solve_state(obj2.after)
-		]));
+		]);
 
 		({ obj1, obj2, relative_speed } = await solve_collision(
 			obj1,
@@ -123,12 +124,12 @@
 			relative_speed_positive
 		));
 
-		([obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
+		[obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
 			solve_state(obj1.before),
 			solve_state(obj1.after),
 			solve_state(obj2.before),
 			solve_state(obj2.after)
-		]));
+		]);
 	}
 </script>
 
@@ -137,7 +138,7 @@
 
 <div class="col-span-1 xl:col-span-8 xl:col-start-2">
 	<div class="card shadow-lg bg-base-100">
-		<div class="flex-row items-center space-x-4 card-body">
+		<div class="xl:flex-row items-center space-x-4 card-body">
 			<MathInput name="COR" units="e" bind:input={relative_speed} />
 			<h3 class="card-title !mt-3 !ml-10">Relative Speed Sign</h3>
 			<div class="btn-group">
@@ -154,6 +155,11 @@
 					}}>-</button
 				>
 			</div>
+
+			<label class="input-group !w-min !ml-4 !mt-4 xl:!mt-0">
+				<span>Precision</span>
+				<input type="number" bind:value="{precision}" placeholder="3" class="input input-bordered" />
+			</label>
 		</div>
 		<div class="flex-row items-center space-x-4 card-body !pt-0">
 			<button
