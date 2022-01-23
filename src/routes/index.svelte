@@ -46,7 +46,7 @@
 		const req = JSON.stringify({
 			problem_type: 'object_properties',
 			problem: state_to_sympy(s),
-			precision: precision,
+			precision: precision
 		});
 		const state_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -80,7 +80,7 @@
 		const req = JSON.stringify({
 			problem_type: 'collision',
 			problem: collision_object_to_sympy(o1, o2, rs, rs_sign),
-			precision: precision,
+			precision: precision
 		});
 		const collision_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -158,7 +158,7 @@
 
 			<label class="input-group !w-min !ml-4 !mt-4 xl:!mt-0">
 				<span>Precision</span>
-				<input type="number" bind:value="{precision}" placeholder="3" class="input input-bordered" />
+				<input type="number" bind:value={precision} placeholder="3" class="input input-bordered" />
 			</label>
 		</div>
 		<div class="flex-row items-center space-x-4 card-body !pt-0">
@@ -177,6 +177,22 @@
 					relative_speed_positive = true;
 				}}>Clear</button
 			>
+		</div>
+		<div class="flex-row items-center space-x-4 card-body !pt-0">
+			<div class="w-full shadow stats">
+				<div class="stat">
+					<div class="stat-title">Initial Kinetic Energy</div>
+					<div class="stat-value">{(Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy))}</div>
+				</div>
+				<div class="stat">
+					<div class="stat-title">Final Kinetic Energy</div>
+					<div class="stat-value text-info">{(Number(obj1.after.kinetic_energy) + Number(obj2.after.kinetic_energy))}</div>
+				</div>
+				<div class="stat">
+					<div class="stat-title">Change in Kinetic Energy</div>
+					<div class="stat-value text-primary">{(Number(obj1.after.kinetic_energy) + Number(obj2.after.kinetic_energy)) - (Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy))}</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

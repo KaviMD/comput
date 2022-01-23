@@ -1,4 +1,4 @@
-export type latex = string | number;
+export type latex = number | "";//string | number;
 
 export interface state {
 	mass: latex;
