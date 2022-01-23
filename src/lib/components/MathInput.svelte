@@ -14,7 +14,9 @@
 			type="text"
 			placeholder="0"
 			bind:value={input}
-			class="input input-bordered mr-2 bg-base-100 focus:bg-base-100 {input === null || input == '' ? 'bg-error' : ''}"
+			class="input input-bordered mr-2 bg-base-100 {input === null || input === ''
+				? 'border-red-500'
+				: ''}"
 		/>
 	</label>
 	<Katex math={units} />
