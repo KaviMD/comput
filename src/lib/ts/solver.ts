@@ -83,7 +83,7 @@ export function collision_object_to_sympy(
 }
 
 function convertIfNotNull(value: latex): number {
-    if (value === null) {
+    if (value === null || value == '') {
         return null;
     } else {
         return Number(value);
