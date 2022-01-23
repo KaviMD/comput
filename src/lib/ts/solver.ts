@@ -83,7 +83,9 @@ export function collision_object_to_sympy(
 }
 
 function convertIfNotNull(value: latex): number {
-    if (value === null || value == '') {
+    if (value == 0) {
+		return 0;
+	} else if (value === null || value == '') {
         return null;
     } else {
         return Number(value);
@@ -101,13 +103,13 @@ export function sympy_to_collision_object(sympy_obj): {
 			before: {
 				mass: sympy_obj.m1i,
 				velocity: sympy_obj.v1i,
-				momentum: sympy_obj.e1i,
+				momentum: sympy_obj.p1i,
 				kinetic_energy: sympy_obj.e1i
 			},
 			after: {
 				mass: sympy_obj.m1f,
 				velocity: sympy_obj.v1f,
-				momentum: sympy_obj.e1f,
+				momentum: sympy_obj.p1f,
 				kinetic_energy: sympy_obj.e1f
 			}
 		},
@@ -115,14 +117,14 @@ export function sympy_to_collision_object(sympy_obj): {
 			before: {
 				mass: sympy_obj.m2i,
 				velocity: sympy_obj.v2i,
-				momentum: sympy_obj.e2i,
-				kinetic_energy: sympy_obj.e2i
+				momentum: sympy_obj.p2i,
+				kinetic_energy: sympy_obj.p2i
 			},
 			after: {
 				mass: sympy_obj.m2f,
 				velocity: sympy_obj.v2f,
-				momentum: sympy_obj.e2f,
-				kinetic_energy: sympy_obj.e2f
+				momentum: sympy_obj.p2f,
+				kinetic_energy: sympy_obj.p2f
 			}
 		},
 		relative_speed: sympy_obj.re

@@ -71,14 +71,14 @@
 	}
 
 	async function solve_collision(
-		obj1: collision_object,
-		obj2: collision_object,
-		relative_speed: latex,
-		relative_speed_positive: boolean
+		o1: collision_object,
+		o2: collision_object,
+		rs: latex,
+		rs_sign: boolean
 	) {
 		const req = JSON.stringify({
 			problem_type: 'collision',
-			problem: collision_object_to_sympy(obj1, obj2, relative_speed, relative_speed_positive)
+			problem: collision_object_to_sympy(o1, o2, rs, rs_sign)
 		});
 		const collision_solution = await fetch('/api/physics', {
 			method: 'post',
@@ -96,10 +96,9 @@
 				JSON.parse(req)
 			);
 			return {
-				obj1,
-				obj2,
-				relative_speed,
-				relative_speed_positive
+				obj1: o1,
+				obj2: o2,
+				relative_speed: rs,
 			};
 		}
 
@@ -117,28 +116,19 @@
 			solve_state(obj2.after)
 		]));
 
-		// ({ obj1, obj2, relative_speed } = await solve_collision(
-		// 	obj1,
-		// 	obj2,
-		// 	relative_speed,
-		// 	relative_speed_positive
-		// ));
-
-		await solve_collision(
+		({ obj1, obj2, relative_speed } = await solve_collision(
 			obj1,
 			obj2,
 			relative_speed,
 			relative_speed_positive
-		);
+		));
 
-		// ([obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
-		// 	solve_state(obj1.before),
-		// 	solve_state(obj1.after),
-		// 	solve_state(obj2.before),
-		// 	solve_state(obj2.after)
-		// ]));
-
-		// obj2.before = await solve_state(obj2.before);
+		([obj1.before, obj1.after, obj2.before, obj2.after] = await Promise.all([
+			solve_state(obj1.before),
+			solve_state(obj1.after),
+			solve_state(obj2.before),
+			solve_state(obj2.after)
+		]));
 	}
 </script>
 
