@@ -1,4 +1,4 @@
-export type latex = number | "";//string | number;
+export type latex = number | ''; //string | number;
 
 export interface state {
 	mass: latex;
@@ -39,12 +39,7 @@ export function state_to_sympy(state: state) {
 	};
 }
 
-export function sympy_to_state(sympy: {
-	m: latex,
-	v: latex,
-	p: latex,
-	e: latex
-}): state {
+export function sympy_to_state(sympy: { m: latex; v: latex; p: latex; e: latex }): state {
 	return {
 		mass: sympy.m,
 		velocity: sympy.v,
@@ -58,11 +53,11 @@ export function collision_object_to_sympy(
 	obj1: collision_object,
 	obj2: collision_object,
 	relative_speed: latex,
-    relative_speed_positive: boolean
+	relative_speed_positive: boolean
 ) {
 	return {
 		m1i: convertIfNotNull(obj1.before.mass),
-        m1f: convertIfNotNull(obj1.after.mass),
+		m1f: convertIfNotNull(obj1.after.mass),
 		v1i: convertIfNotNull(obj1.before.velocity),
 		v1f: convertIfNotNull(obj1.after.velocity),
 		p1i: convertIfNotNull(obj1.before.momentum),
@@ -78,18 +73,18 @@ export function collision_object_to_sympy(
 		e2i: convertIfNotNull(obj2.before.kinetic_energy),
 		e2f: convertIfNotNull(obj2.after.kinetic_energy),
 		re: convertIfNotNull(relative_speed),
-        re_positive: relative_speed_positive
+		re_positive: relative_speed_positive
 	};
 }
 
 function convertIfNotNull(value: latex): number {
-    if (value == 0) {
+	if (value == 0) {
 		return 0;
 	} else if (value === null || value === '') {
-        return null;
-    } else {
-        return Number(value);
-    }
+		return null;
+	} else {
+		return Number(value);
+	}
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

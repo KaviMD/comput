@@ -182,15 +182,23 @@
 			<div class="w-full shadow stats">
 				<div class="stat">
 					<div class="stat-title">Initial Kinetic Energy</div>
-					<div class="stat-value">{(Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy))}</div>
+					<div class="stat-value">
+						{Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy)}
+					</div>
 				</div>
 				<div class="stat">
 					<div class="stat-title">Final Kinetic Energy</div>
-					<div class="stat-value text-info">{(Number(obj1.after.kinetic_energy) + Number(obj2.after.kinetic_energy))}</div>
+					<div class="stat-value text-info">
+						{Number(obj1.after.kinetic_energy) + Number(obj2.after.kinetic_energy)}
+					</div>
 				</div>
 				<div class="stat">
 					<div class="stat-title">Change in Kinetic Energy</div>
-					<div class="stat-value text-primary">{(Number(obj1.after.kinetic_energy) + Number(obj2.after.kinetic_energy)) - (Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy))}</div>
+					<div class="stat-value text-primary">
+						{Number(obj1.after.kinetic_energy) +
+							Number(obj2.after.kinetic_energy) -
+							(Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy))}
+					</div>
 				</div>
 			</div>
 		</div>

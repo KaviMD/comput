@@ -46,18 +46,29 @@ export const post: RequestHandler = async ({ request }) => {
 
 	switch (data.problem_type) {
 		case 'collision':
-			filter_symbols = ['m1i', 'm1f', 'v1i', 'v1f', 'm2i', 'm2f', 'v2i', 'v2f', 're', 're_positive'];
-			filename = "solve_collision.py";
+			filter_symbols = [
+				'm1i',
+				'm1f',
+				'v1i',
+				'v1f',
+				'm2i',
+				'm2f',
+				'v2i',
+				'v2f',
+				're',
+				're_positive'
+			];
+			filename = 'solve_collision.py';
 			break;
 		case 'object_properties':
 			filter_symbols = ['m', 'v', 'e', 'p'];
-			filename = "solve_object_properties.py";
+			filename = 'solve_object_properties.py';
 			break;
 		default:
 			return {
 				status: 400,
-				error: `Invalid problem type: ${data.problem_type}`,
-			}
+				error: `Invalid problem type: ${data.problem_type}`
+			};
 	}
 
 	// eslint-disable-next-line prefer-const
@@ -79,7 +90,7 @@ export const post: RequestHandler = async ({ request }) => {
 		output = await runPythonScript(filename, [
 			JSON.stringify(known_symbols),
 			JSON.stringify(unknown_symbols),
-			data.precision,
+			data.precision
 		]);
 	} catch (error) {
 		console.log(error);
@@ -87,7 +98,7 @@ export const post: RequestHandler = async ({ request }) => {
 			status: 400,
 			body: {
 				error: error
-			},
+			}
 		};
 	}
 
@@ -99,7 +110,7 @@ export const post: RequestHandler = async ({ request }) => {
 		},
 		body: { ...data.problem, ...solution }
 	};
-}
+};
 
 async function runPythonScript(filename: string, args: string[]) {
 	return await execute(`python3 src/lib/python/${filename} '${args.join("' '")}'`);
