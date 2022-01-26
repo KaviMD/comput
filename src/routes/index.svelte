@@ -8,36 +8,10 @@
 		collisionObjectFactory
 	} from '$lib/ts/solver';
 	import type { collision_object, state, latex } from '$lib/ts/solver';
-	import MathInput from '$lib/components/mathinput.svelte';
+	import MathInput from '$lib/components/MathInput.svelte';
 
-	let obj1: collision_object = {
-		before: {
-			mass: 0.005,
-			velocity: 500,
-			momentum: null,
-			kinetic_energy: null
-		},
-		after: {
-			mass: 0.205,
-			velocity: 10,
-			momentum: null,
-			kinetic_energy: null
-		}
-	}; //collisionObjectFactory();
-	let obj2: collision_object = {
-		before: {
-			mass: 2,
-			velocity: 0,
-			momentum: null,
-			kinetic_energy: null
-		},
-		after: {
-			mass: 1.8,
-			velocity: null,
-			momentum: null,
-			kinetic_energy: null
-		}
-	}; //collisionObjectFactory();
+	let obj1: collision_object = collisionObjectFactory();
+	let obj2: collision_object = collisionObjectFactory();
 	let relative_speed: latex = null;
 	let relative_speed_positive: boolean = true;
 	let precision: number = 3;

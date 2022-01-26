@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Mathinput from '$lib/components/mathinput.svelte';
+	import MathInput from '$lib/components/MathInput.svelte';
 	import type { state } from '$lib/ts/solver';
 
 	export let time: string;
@@ -12,18 +12,18 @@
 		<div class="flex-1">
 			<h2 class="card-title text-accent !text-2xl">{time}</h2>
 			<div class="ml-4">
-				<Mathinput name="Mass" units="kg" bind:input={state.mass} />
-				<Mathinput
+				<MathInput name="Mass" units="kg" bind:input={state.mass} />
+				<MathInput
 					name="Velocity"
 					units="\frac{'{'}m{'}'}{'{'}s{'}'}"
 					bind:input={state.velocity}
 				/>
-				<Mathinput
+				<MathInput
 					name="Momentum"
 					units="\frac{'{'}kg \cdot m{'}'}{'{'}s{'}'}"
 					bind:input={state.momentum}
 				/>
-				<Mathinput name="Ke" units="J" bind:input={state.kinetic_energy} />
+				<MathInput name="Ke" units="J" bind:input={state.kinetic_energy} />
 			</div>
 		</div>
 	</div>
