@@ -107,6 +107,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>COMPUT</title>
+</svelte:head>
+
 <Entity className="col-span-1 xl:col-start-2 xl:col-span-4" name="Object 1" bind:data={obj1} />
 <Entity className="col-span-1 xl:col-start-6 xl:col-span-4" name="Object 2" bind:data={obj2} />
 
