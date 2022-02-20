@@ -180,5 +180,56 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="flex-row items-center space-x-4 card-body !pt-0">
+			<div class="w-full shadow stats">
+				<div class="stat">
+					<div class="stat-title">Initial Relative Speed</div>
+					<div class="stat-value">
+						{Math.abs(Number(obj1.before.velocity) - Number(obj2.before.velocity))}
+					</div>
+				</div>
+				<div class="stat">
+					<div class="stat-title">Final Relative Speed</div>
+					<div class="stat-value text-info">
+						{Math.abs(Number(obj1.after.velocity) - Number(obj2.after.velocity))}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex-row items-center space-x-4 card-body !pt-0">
+			<div class="w-full shadow stats">
+				<div class="stat">
+					<div class="stat-title">Center of Mass Velocity</div>
+					<div class="stat-value">
+						{(Number(obj1.before.momentum) + Number(obj2.before.momentum)) /
+							(Number(obj1.before.mass) + Number(obj2.before.mass))}
+					</div>
+				</div>
+				<div class="stat">
+					<div class="stat-title">Convertible Kinetic Energy</div>
+					<div class="stat-value text-info">
+						{
+							(Number(obj1.before.kinetic_energy) + Number(obj2.before.kinetic_energy)) - (((Number(obj1.before.velocity) - ((Number(obj1.before.momentum) + Number(obj2.before.momentum)) /
+							(Number(obj1.before.mass) + Number(obj2.before.mass)))) ^ 2) * Number(obj1.before.mass) / 2 +
+							((Number(obj2.before.velocity) - ((Number(obj1.before.momentum) + Number(obj2.before.momentum)) /
+							(Number(obj1.before.mass) + Number(obj2.before.mass)))) ^ 2) * Number(obj2.before.mass) / 2)
+						}
+					</div>
+				</div>
+				<div class="stat">
+					<div class="stat-title">Non-Convertible Kinetic Energy</div>
+					<div class="stat-value text-info">
+						{
+							((Number(obj1.before.velocity) - ((Number(obj1.before.momentum) + Number(obj2.before.momentum)) /
+							(Number(obj1.before.mass) + Number(obj2.before.mass)))) ^ 2) * Number(obj1.before.mass) / 2 +
+							((Number(obj2.before.velocity) - ((Number(obj1.before.momentum) + Number(obj2.before.momentum)) /
+							(Number(obj1.before.mass) + Number(obj2.before.mass)))) ^ 2) * Number(obj2.before.mass) / 2
+						}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
