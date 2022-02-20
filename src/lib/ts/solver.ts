@@ -119,7 +119,7 @@ export function sympy_to_collision_object(sympy_obj): {
 				mass: sympy_obj.m2f,
 				velocity: sympy_obj.v2f,
 				momentum: sympy_obj.p2f,
-				kinetic_energy: sympy_obj.p2f
+				kinetic_energy: sympy_obj.e2f
 			}
 		},
 		relative_speed: sympy_obj.re
